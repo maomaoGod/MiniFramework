@@ -9,6 +9,7 @@ namespace MiniFramework
     public class Sequence:INode
     {
         public MonoBehaviour Executer { get; set; }
+        public List<Action> Nodes = new List<Action>();
         public Sequence()
         {
 

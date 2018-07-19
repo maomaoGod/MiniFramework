@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MiniFramework
 {
     public static class SequenceExcuter
     {
+       
         public static INode Sequence<T>(this T selfBehaviour) where T:MonoBehaviour
         {
             var node = new Sequence() { Executer = selfBehaviour};
