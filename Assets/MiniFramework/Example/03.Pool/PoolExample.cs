@@ -8,29 +8,29 @@ public class PoolExample : MonoBehaviour
     void Start()
     {
 
-        ObjectPool<Fish>.Instance.Init(50, 10);
-        Debug.Log("初始化鱼：" + ObjectPool<Fish>.Instance.CurCount);
+        Pool<Fish>.Instance.Init(50, 10);
+        Debug.Log("初始化鱼：" + Pool<Fish>.Instance.CurCount);
 
-        ObjectPool<Bear>.Instance.Init(100, 5);
-        Debug.Log("初始化熊：" + ObjectPool<Bear>.Instance.CurCount);
+        Pool<Bear>.Instance.Init(100, 5);
+        Debug.Log("初始化熊：" + Pool<Bear>.Instance.CurCount);
 
-        var fish = ObjectPool<Fish>.Instance.Allocate();
-        Debug.Log("分配了一个鱼，剩余：" + ObjectPool<Fish>.Instance.CurCount + "回收标志：" + fish.IsRecycled);
+        var fish = Pool<Fish>.Instance.Allocate();
+        Debug.Log("分配了一个鱼，剩余：" + Pool<Fish>.Instance.CurCount + "回收标志：" + fish.IsRecycled);
         fish.name = "xx";
-        ObjectPool<Fish>.Instance.Recycle(fish);
-        Debug.Log("回收了一个鱼，剩余：" + ObjectPool<Fish>.Instance.CurCount + "回收标志：" + fish.IsRecycled);
+        Pool<Fish>.Instance.Recycle(fish);
+        Debug.Log("回收了一个鱼，剩余：" + Pool<Fish>.Instance.CurCount + "回收标志：" + fish.IsRecycled);
 
-        var bear = ObjectPool<Bear>.Instance.Allocate();
-        Debug.Log("分配了一个熊，剩余：" + ObjectPool<Bear>.Instance.CurCount);
-        ObjectPool<Bear>.Instance.Recycle(bear);
-        Debug.Log("回收了一个熊，剩余：" + ObjectPool<Bear>.Instance.CurCount);
+        var bear = Pool<Bear>.Instance.Allocate();
+        Debug.Log("分配了一个熊，剩余：" + Pool<Bear>.Instance.CurCount);
+        Pool<Bear>.Instance.Recycle(bear);
+        Debug.Log("回收了一个熊，剩余：" + Pool<Bear>.Instance.CurCount);
 
-        Debug.Log(ObjectPool<Fish>.Instance.Allocate().name);
+        Debug.Log(Pool<Fish>.Instance.Allocate().name);
     }
 
     private void OnDestroy()
     {
-        ObjectPool<Fish>.Instance.Dispose();
+        Pool<Fish>.Instance.Dispose();
     }
 }
 

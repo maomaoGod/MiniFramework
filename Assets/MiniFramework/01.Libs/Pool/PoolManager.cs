@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MiniFramework
 {
-    public class GameObjectPool : MonoSingleton<GameObjectPool>
+    public class PoolManager : MonoSingleton<PoolManager>
     {
         public List<ChildPool> Pools = new List<ChildPool>();
         private Dictionary<string, Stack<GameObject>> cacheDict = new Dictionary<string, Stack<GameObject>>();
@@ -50,8 +50,11 @@ namespace MiniFramework
             if (CurCount(name) > 0)
             {
                 GameObject obj = cacheDict[name].Pop();
-                obj.SetActive(true);
-                return obj;
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                    return obj;
+                }
             }
             else
             {

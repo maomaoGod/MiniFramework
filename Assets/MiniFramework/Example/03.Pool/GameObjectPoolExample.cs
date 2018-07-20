@@ -11,18 +11,18 @@ public class GameObjectPoolExample : MonoBehaviour {
 
     private void OnEnable()
     {
-        GameObjectPool.Instance.Allocate("Cube");
-        Debug.Log("剩余对象："+GameObjectPool.Instance.CurCount("Cube"));
-        GameObjectPool.Instance.Allocate("Cube");
-        Debug.Log("剩余对象：" + GameObjectPool.Instance.CurCount("Cube"));
-        GameObjectPool.Instance.Allocate("Cube");
-        Debug.Log("剩余对象：" + GameObjectPool.Instance.CurCount("Cube"));
-        GameObjectPool.Instance.Allocate("Cube");
-        Debug.Log("剩余对象：" + GameObjectPool.Instance.CurCount("Cube"));
-        GameObjectPool.Instance.Allocate("Cube");
-        Debug.Log("剩余对象：" + GameObjectPool.Instance.CurCount("Cube"));
-        GameObjectPool.Instance.Allocate("Cube");
-        Debug.Log("剩余对象：" + GameObjectPool.Instance.CurCount("Cube"));
+        PoolManager.Instance.Allocate("Cube");
+        Debug.Log("剩余对象："+PoolManager.Instance.CurCount("Cube"));
+        PoolManager.Instance.Allocate("Cube");
+        Debug.Log("剩余对象：" + PoolManager.Instance.CurCount("Cube"));
+        PoolManager.Instance.Allocate("Cube");
+        Debug.Log("剩余对象：" + PoolManager.Instance.CurCount("Cube"));
+        PoolManager.Instance.Allocate("Cube");
+        Debug.Log("剩余对象：" + PoolManager.Instance.CurCount("Cube"));
+        PoolManager.Instance.Allocate("Cube");
+        Debug.Log("剩余对象：" + PoolManager.Instance.CurCount("Cube"));
+        PoolManager.Instance.Allocate("Cube");
+        Debug.Log("剩余对象：" + PoolManager.Instance.CurCount("Cube"));
     }
     private void OnDisable()
     {
