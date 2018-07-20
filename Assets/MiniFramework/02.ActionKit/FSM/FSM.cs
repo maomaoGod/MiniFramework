@@ -35,7 +35,7 @@ namespace MiniFramework
         }
         Dictionary<string, FSMState> mStateDict = new Dictionary<string, FSMState>();   //状态池   
         /// <summary>
-        /// 添加条状
+        /// 添加跳转
         /// </summary>
         /// <param name="fromState"></param>
         /// <param name="command"></param>

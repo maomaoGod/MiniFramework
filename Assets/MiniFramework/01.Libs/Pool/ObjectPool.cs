@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 namespace MiniFramework
 {
-    public interface IPoolable
+    public class ObjectPool<T> : Singleton<ObjectPool<T>> where T : IPoolable, new()
     {
-        bool IsRecycled { get; set; }
-    }
-    public class Pool<T> : Singleton<Pool<T>> where T : IPoolable, new()
-    {
-        private Pool() { }
-        private uint mMaxCount;//缓存池最大个数
+        private ObjectPool() { }
+        private uint mMaxCount=10;//缓存池最大个数
 
         protected readonly Stack<T> mCacheStack = new Stack<T>();//缓存池
         //当前缓存池中对象个数
