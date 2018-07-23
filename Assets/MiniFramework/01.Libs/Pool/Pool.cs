@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 namespace MiniFramework
 {
-    public class ObjectPool<T> : Singleton<ObjectPool<T>> where T : IPoolable, new()
+    public class Pool<T> : Singleton<Pool<T>> where T : IPoolable, new()
     {
-        private ObjectPool() { }
+        private Pool() { }
         private uint mMaxCount=10;//缓存池最大个数
 
         protected readonly Stack<T> mCacheStack = new Stack<T>();//缓存池

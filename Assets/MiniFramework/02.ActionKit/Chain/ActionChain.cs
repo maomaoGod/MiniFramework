@@ -9,7 +9,7 @@ namespace MiniFramework
     {
         public static void Delay<T>(this T selfBehaviour,float seconds,Action callBack) where T : MonoBehaviour
         {
-            Sequence sequence = ObjectPool<Sequence>.Instance.Allocate();
+            Sequence sequence = Pool<Sequence>.Instance.Allocate();
             sequence.Executer = selfBehaviour;
             sequence.Append(seconds);
             sequence.Append(callBack);
@@ -17,7 +17,7 @@ namespace MiniFramework
         }
         public static ISequence Sequence<T>(this T selfBehaviour) where T : MonoBehaviour
         {
-            Sequence sequence = ObjectPool<Sequence>.Instance.Allocate();
+            Sequence sequence = Pool<Sequence>.Instance.Allocate();
             sequence.Executer = selfBehaviour;
             return sequence;
         }

@@ -65,7 +65,7 @@ namespace MiniFramework
                 Nodes[i].IsFinished = true;
             }
             
-            ObjectPool<Sequence>.Instance.Recycle(this);
+            Pool<Sequence>.Instance.Recycle(this);
         }
         public void OnRecycled()
         {
