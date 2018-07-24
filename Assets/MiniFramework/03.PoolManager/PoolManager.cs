@@ -6,7 +6,7 @@ namespace MiniFramework
 {
     public class PoolManager : MonoSingleton<PoolManager>
     {
-        public List<ChildPool> Pools = new List<ChildPool>();
+        public List<SubPool> Pools = new List<SubPool>();
         private Dictionary<string, Stack<GameObject>> cacheDict = new Dictionary<string, Stack<GameObject>>();
         //当前对象池中对象个数
         public int CurCount(string name)
@@ -20,7 +20,7 @@ namespace MiniFramework
         /// <summary>
         /// 初始化对象池
         /// </summary>
-        private void Start()
+        private void Awake()
         {
             for (int i = 0; i < Pools.Count; i++)
             {
@@ -98,7 +98,7 @@ namespace MiniFramework
         }
     }
     [Serializable]
-    public class ChildPool
+    public class SubPool
     {
         public int MaxCount;
         public bool DontDestoryOnLoaded;

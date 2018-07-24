@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 namespace MiniFramework
 {
+    /// <summary>
+    /// 用于非GameObject对象的对象池
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Pool<T> : Singleton<Pool<T>> where T : IPoolable, new()
     {
         private Pool() { }
