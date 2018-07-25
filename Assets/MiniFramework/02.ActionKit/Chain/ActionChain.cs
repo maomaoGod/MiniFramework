@@ -12,7 +12,7 @@ namespace MiniFramework
             Sequence sequence = Pool<Sequence>.Instance.Allocate();
             sequence.Executer = selfBehaviour;
             sequence.Append(seconds);
-            sequence.Append(callBack);
+            sequence.Append(callBack:callBack);
             sequence.Execute();
         }
         public static ISequence Sequence<T>(this T selfBehaviour) where T : MonoBehaviour
@@ -28,12 +28,12 @@ namespace MiniFramework
         }
         public static ISequence Event(this ISequence sequence, Action callBack)
         {
-            sequence.Append(callBack);
+            sequence.Append(callBack:callBack);
             return sequence;
         }
         public static ISequence Until(this ISequence sequence, Func<bool> condition)
         {
-            sequence.Append(condition);
+            sequence.Append(condition:condition);
             return sequence;
         }
         public static ISequence Start(this ISequence sequence)

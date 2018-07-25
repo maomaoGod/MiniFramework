@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 namespace MiniFramework
 {
     public interface IMsgReceiver { }
     public interface IMsgSender { }
-    public static class MsgManager
+    public static class MsgDispatcher
     {
         private class MsgHandler
         {
@@ -31,11 +30,11 @@ namespace MiniFramework
         {
             if (string.IsNullOrEmpty(msgName))
             {
-                Debug.Log("消息名不能为null!");
+                throw new Exception("消息名不能为null!");
             }
             if (callback == null)
             {
-                Debug.Log("callback不能为null!");
+                throw new Exception("callback不能为null!");
             }
             //确保一个消息名只有一组消息列表
             if (!msgHandlerDict.ContainsKey(msgName))
@@ -63,11 +62,11 @@ namespace MiniFramework
         {
             if (string.IsNullOrEmpty(msgName))
             {
-                Debug.Log("消息名不能为null!");
+                throw new Exception("消息名不能为null!");
             }
             if (!msgHandlerDict.ContainsKey(msgName))
             {
-                Debug.Log("该消息名没有被注册");
+                //Debug.Log("该消息名没有被注册");
                 return;
             }
             var handlers = msgHandlerDict[msgName];

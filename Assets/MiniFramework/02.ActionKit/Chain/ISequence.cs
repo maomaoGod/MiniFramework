@@ -6,9 +6,7 @@ namespace MiniFramework
     /// </summary>
     public interface ISequence
     {
-        void Append(float seconds);
-        void Append(Action callBack);
-        void Append(Func<bool> condition);
+        void Append(float seconds=0f,Action callBack = null,Func<bool> condition =null);
         void Execute();
     }
 }

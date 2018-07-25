@@ -14,25 +14,12 @@ namespace MiniFramework
         public bool IsRecycled { get; set; }
         private List<Node> Nodes = new List<Node>();
         public Sequence() { }
-        public void Append(float seconds)
+        public void Append(float seconds = 0f, Action callBack = null, Func<bool> condition = null)
         {
             Node node = new Node();
             node.Seconds = seconds;
-            node.Type = NodeType.Delay;
-            Nodes.Add(node);
-        }
-        public void Append(Action callBack)
-        {
-            Node node = new Node();
             node.CallBack = callBack;
-            node.Type = NodeType.Event;
-            Nodes.Add(node);
-        }
-        public void Append(Func<bool> condition)
-        {
-            Node node = new Node();
             node.Condition = condition;
-            node.Type = NodeType.Condition;
             Nodes.Add(node);
         }
         public void Execute()
@@ -44,27 +31,23 @@ namespace MiniFramework
             for (int i = 0; i < Nodes.Count; i++)
             {
                 float cur = 0;
-                switch (Nodes[i].Type)
+                while ((cur += Time.deltaTime) < Nodes[i].Seconds)
                 {
-                    case NodeType.Event:
-                        Nodes[i].CallBack();
-                        break;
-                    case NodeType.Delay:
-                        while ((cur += Time.deltaTime) < Nodes[i].Seconds)
-                        {
-                            yield return null;
-                        }
-                        break;
-                    case NodeType.Condition:
-                        while (Nodes[i].Condition()==false)
-                        {
-                            yield return null;
-                        }
-                        break;
+                    yield return null;
+                }
+                if (Nodes[i].Condition != null)
+                {
+                    while (Nodes[i].Condition() == false)
+                    {
+                        yield return null;
+                    }
+                }
+                if (Nodes[i].CallBack != null)
+                {
+                    Nodes[i].CallBack();
                 }
                 Nodes[i].IsFinished = true;
             }
-            
             Pool<Sequence>.Instance.Recycle(this);
         }
         public void OnRecycled()
