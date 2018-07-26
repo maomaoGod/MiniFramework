@@ -5,17 +5,17 @@ using System.Xml.Serialization;
 
 namespace MiniFramework
 {
+    public interface Binary { }
+    public interface XML { }
+    public interface Json { }
+    public interface ProtoBuff { }
     public static class SerializeUtil
     {
-        public static bool SerializeBinary(string path, object obj)
+        public static bool Serialize(this Binary obj, string path)
         {
             if (string.IsNullOrEmpty(path))
             {
                 throw new System.Exception("路径不能为空！");
-            }
-            if (obj == null)
-            {
-                throw new System.Exception("序列化对象不能为空");
             }
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
@@ -24,12 +24,8 @@ namespace MiniFramework
                 return true;
             }
         }
-        public static object DeserializeBinary(string path)
+        public static T DeserializeFromBinary<T>(this string path)where T:Binary
         {
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new System.Exception("路径不能为空！");
-            }
             FileInfo fileInfo = new FileInfo(path);
             if (!fileInfo.Exists)
             {
@@ -38,19 +34,16 @@ namespace MiniFramework
             using (FileStream fs = fileInfo.OpenRead())
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                object data = bf.Deserialize(fs);
-                return data;
+                object data =bf.Deserialize(fs);
+                return (T)data;
             }
         }
-        public static bool SerializeXML(string path, object obj)
+
+        public static bool Serialize(this XML obj,string path)
         {
             if (string.IsNullOrEmpty(path))
             {
                 throw new System.Exception("路径不能为空！");
-            }
-            if (obj == null)
-            {
-                throw new System.Exception("序列化对象不能为空");
             }
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
@@ -59,12 +52,8 @@ namespace MiniFramework
                 return true;
             }
         }
-        public static object DeserializeXML<T>(string path)
+        public static T DeserializeFromXML<T>(this string path)where T:XML
         {
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new System.Exception("路径不能为空！");
-            }
             FileInfo fileInfo = new FileInfo(path);
             if (!fileInfo.Exists)
             {
@@ -74,27 +63,27 @@ namespace MiniFramework
             {
                 XmlSerializer xml = new XmlSerializer(typeof(T));
                 object data = xml.Deserialize(fs);
-                return data;
+                return (T)data;
             }
         }
-        public static string SerializeJson(object obj)
+        public static string Serialize(this Json obj)
         {
             return JsonConvert.SerializeObject(obj, Formatting.Indented);
         }
-        public static object DeserializeJson<T>(string json)
+        public static T DeserializeFromJson<T>(this string json)where T :Json
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public static byte[] ToProtoBuff<T>(this T obj)where T : class
+        public static byte[] Serialize(this ProtoBuff obj)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                ProtoBuf.Serializer.Serialize<T>(ms, obj);
+                ProtoBuf.Serializer.Serialize(ms, obj);
                 return ms.ToArray();
             }
         }
-        public static T FromProtoBuff<T>(this byte[] bytes) where T : class
+        public static T DeserializeFromProtoBuff<T>(this byte[] bytes)where T:ProtoBuff
         {
             if (bytes == null || bytes.Length == 0)
             {

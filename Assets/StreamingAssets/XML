@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="gb2312"?>
-<SerializeClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<XMLClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <age>18</age>
   <name>ss</name>
   <isBoy>true</isBoy>
-</SerializeClass>
+</XMLClass>
