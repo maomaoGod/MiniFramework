@@ -7,7 +7,7 @@ public class RecycleObject : MonoBehaviour {
 	// Use this for initialization
 	void OnEnable () {
         Invoke("Recycle", 2f);
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

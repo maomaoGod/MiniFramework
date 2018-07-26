@@ -6,6 +6,12 @@ namespace MiniFramework
     public class ObjectPool : MonoSingleton<ObjectPool>
     {
         private Dictionary<string, Stack<GameObject>> mCacheDict = new Dictionary<string, Stack<GameObject>>();
+        private uint mMaxCount = 10;//缓存池最大个数
+        /// <summary>
+        /// 该对象当前缓存数量
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public int CurCount(string name)
         {
             if (mCacheDict.ContainsKey(name))
@@ -19,11 +25,15 @@ namespace MiniFramework
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="count"></param>
-        public void Init(GameObject obj, int count)
+        public void Init(GameObject obj, int count, bool dontDestroyOnLoad = false)
         {
             for (int i = 0; i < count; i++)
             {
                 GameObject temp = Instantiate(obj);
+                if (dontDestroyOnLoad)
+                {
+                    DontDestroyOnLoad(temp);
+                }
                 temp.name = obj.name;
                 Recycle(temp);
             }
@@ -40,6 +50,10 @@ namespace MiniFramework
                 if (mCacheDict[objName].Count > 0)
                 {
                     GameObject obj = mCacheDict[objName].Pop();
+                    if (obj == null)
+                    {
+                        return null;
+                    }
                     obj.SetActive(true);
                     return obj;
                 }
@@ -60,8 +74,15 @@ namespace MiniFramework
             obj.SetActive(false);
             if (mCacheDict.ContainsKey(obj.name))
             {
-                if (!mCacheDict[obj.name].Contains(obj))
-                    mCacheDict[obj.name].Push(obj);
+                if (mCacheDict[obj.name].Count >= mMaxCount)
+                {
+                    return false;
+                }
+                if (mCacheDict[obj.name].Contains(obj))
+                {
+                    return false;
+                }
+                mCacheDict[obj.name].Push(obj);
             }
             else
             {
