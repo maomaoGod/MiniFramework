@@ -13,17 +13,24 @@ namespace MiniFramework
         /// <summary>
         /// 压缩文件夹
         /// </summary>
-        /// <param name="folderPath">需要压缩的文件夹路径</param>
-        /// <param name="zipedPath">压缩包存放路径</param>
-        /// <param name="zipedFileName">压缩包名</param>
-        /// <param name="isEncrypt">是否加密</param>
-        public static void ZipDirectory(string DirectoryPath, string zipedPath, string zipedFileName)
+        /// <param name="DirectoryPath">文件夹路径</param>
+        /// <param name="savePath">压缩包保存路径</param>
+        /// <param name="zipName">压缩包名</param>
+        public static void ZipDirectory(string DirectoryPath, string savePath, string zipName)
         {
             if (!Directory.Exists(DirectoryPath))
             {
                 throw new FileNotFoundException("指定目录：" + DirectoryPath + "不存在！");
             }
-            using (FileStream fileStream = File.Create(zipedPath + "/" + zipedFileName))
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+            if (!savePath.EndsWith(Path.AltDirectorySeparatorChar.ToString()))
+            {
+                savePath += Path.AltDirectorySeparatorChar;
+            }
+            using (FileStream fileStream = File.Create(savePath + zipName))
             {
                 using (ZipOutputStream outStream = new ZipOutputStream(fileStream))
                 {
@@ -35,16 +42,22 @@ namespace MiniFramework
         /// 解压
         /// </summary>
         /// <param name="zipFilePath">压缩包路径</param>
-        /// <param name="unZipDir">解压文件存放路径</param>
+        /// <param name="savePath">解压文件存放路径</param>
         /// <returns></returns>
-        public static bool UpZipFile(string zipFilePath, string unZipDir)
-        {         
-            if (unZipDir == string.Empty)
-                unZipDir = zipFilePath.Replace(Path.GetFileName(zipFilePath), Path.GetFileNameWithoutExtension(zipFilePath));
-            if (!Directory.Exists(unZipDir))
-                Directory.CreateDirectory(unZipDir);
-            if (!unZipDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                unZipDir += Path.DirectorySeparatorChar;
+        public static bool UpZipFile(string zipFilePath, string savePath)
+        {
+            if (!File.Exists(zipFilePath))
+            {
+                throw new FileNotFoundException("指定文件：" + zipFilePath + "不存在！");
+            }
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+            if (!savePath.EndsWith(Path.AltDirectorySeparatorChar.ToString()))
+            {
+                savePath += Path.AltDirectorySeparatorChar;
+            }
             using (ZipInputStream inputStream = new ZipInputStream(File.OpenRead(zipFilePath)))
             {
                 ZipEntry theEntry;
@@ -54,13 +67,13 @@ namespace MiniFramework
                     string fileName = Path.GetFileName(theEntry.Name);
                     if (directoryName.Length > 0)
                     {
-                        Directory.CreateDirectory(unZipDir + directoryName);
+                        Directory.CreateDirectory(savePath + directoryName);
                     }
                     if (!directoryName.EndsWith(Path.DirectorySeparatorChar.ToString()))
                         directoryName += Path.DirectorySeparatorChar.ToString();
                     if (fileName != string.Empty)
                     {
-                        using (FileStream writer = File.Create(unZipDir + theEntry.Name))
+                        using (FileStream writer = File.Create(savePath + theEntry.Name))
                         {
                             int size = 2048;
                             byte[] data = new byte[2048];
@@ -86,13 +99,8 @@ namespace MiniFramework
         /// <summary>
         /// 递归目录
         /// </summary>
-        /// <param name="path"></param>
         private static void ZipStep(string targetDirectory, ZipOutputStream stream, string parentPath)
         {
-            if (targetDirectory[targetDirectory.Length - 1] != Path.DirectorySeparatorChar)
-            {
-                targetDirectory += Path.DirectorySeparatorChar;
-            }
             Crc32 crc = new Crc32();
             string[] fileNames = Directory.GetFileSystemEntries(targetDirectory);
             foreach (var file in fileNames)

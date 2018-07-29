@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MiniFramework;
+using System.IO;
+
 public class ZipExample : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
-        ZipUtil.ZipDirectory(Application.streamingAssetsPath, "C:/Users/Administrator/Desktop", "Test.zip");
-        Debug.Log("正在压缩");
-        if(ZipUtil.UpZipFile( "C:/Users/Administrator/Desktop/Test.zip", "C:/Users/Administrator/Desktop/Test"))
-        {
-            Debug.Log("解压成功");
-        }
+        ZipUtil.ZipDirectory(Application.streamingAssetsPath,Application.dataPath,"Test.zip");
+        Debug.Log("压缩完成");
+        ZipUtil.UpZipFile(Application.dataPath + "/Test.zip", Application.dataPath+"/Test");
+        Debug.Log("解压完成");
     }
 }

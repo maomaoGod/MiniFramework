@@ -23,29 +23,26 @@ namespace MiniFramework
         private int y = 0;
         private int w = 0;
         private int h = 0;
-
-        public MemoryDetector()
+        public  MemoryDetector()
         {
-            this.x = 60;
-            this.y = 60;
+            this.x = 0;
+            this.y = 20;
             this.w = 200;
             this.h = 20;
 
-            this.allocMemoryRect = new Rect(x, y, w, h);
-            this.reservedMemoryRect = new Rect(x, y + h, w, h);
+            this.reservedMemoryRect = new Rect(x, y, w, h);
+            this.allocMemoryRect = new Rect(x, y + h, w, h);
             this.unusedReservedMemoryRect = new Rect(x, y + 2 * h, w, h);
             this.monoHeapRect = new Rect(x, y + 3 * h, w, h);
             this.monoUsedRect = new Rect(x, y + 4 * h, w, h);
-
            // console.onGUICallback += OnGUI;
         }
-
         void OnGUI()
         {
-            GUI.Label(this.allocMemoryRect,
-                string.Format(TotalAllocMemroyFormation, Profiler.GetTotalAllocatedMemoryLong() * ByteToM));
             GUI.Label(this.reservedMemoryRect,
                 string.Format(TotalReservedMemoryFormation, Profiler.GetTotalReservedMemoryLong() * ByteToM));
+            GUI.Label(this.allocMemoryRect,
+                string.Format(TotalAllocMemroyFormation, Profiler.GetTotalAllocatedMemoryLong() * ByteToM));
             GUI.Label(this.unusedReservedMemoryRect,
                 string.Format(TotalUnusedReservedMemoryFormation, Profiler.GetTotalUnusedReservedMemoryLong() * ByteToM));
             GUI.Label(this.monoHeapRect,
