@@ -5,17 +5,16 @@ namespace MiniFramework
     /// <summary>
     /// 帧率计算器
     /// </summary>
-    public class FPSCounter:MonoBehaviour
+    public class FPSCounter
     {
         private const float calcRate = 0.5f;
         private int frameCount = 0;
         private float rateDuration = 0f;
         private int fps = 0;
-        private void Start()
+        public FPSCounter(Console console)
         {
-            frameCount = 0;
-            rateDuration = 0f;
-            fps = 0;
+            console.OnUpdateCallback += Update;
+            console.OnGUICallback += OnGUI;
         }
         private void Update()
         {
@@ -30,7 +29,6 @@ namespace MiniFramework
         }
         private void OnGUI()
         {
-            GUI.color = Color.green;
             GUILayout.Label("FPS:"+fps);
         }
     }

@@ -9,7 +9,7 @@ public class UseSingleton : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        TestMono.Instance.XX();
+        TestMono.Instance().XX();
         Test.Instance.XX();
     }
 }

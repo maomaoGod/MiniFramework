@@ -16,6 +16,6 @@ public class RecycleObject : MonoBehaviour {
 
     public void Recycle()
     {
-        ObjectPool.Instance.Recycle(gameObject);
+        ObjectPool.Instance().Recycle(gameObject);
     }
 }

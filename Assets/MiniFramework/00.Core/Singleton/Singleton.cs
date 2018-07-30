@@ -5,14 +5,7 @@ namespace MiniFramework
     public abstract class Singleton<T> where T:Singleton<T>
     {
         protected static T mInstance;
-
         static object mLock = new object();
-
-        protected Singleton()
-        {
-
-        }
-
         public static T Instance
         {
             get
