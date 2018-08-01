@@ -2,9 +2,9 @@
 
 public static class BezierUtil{
     /// <summary>
-    /// 二阶
+    /// 二阶曲线
     /// </summary>
-    /// <param name="t"></param>
+    /// <param name="t">[0,1]</param>
     /// <param name="startPos"></param>
     /// <param name="endPos"></param>
     /// <param name="controlPoint"></param>
@@ -19,9 +19,9 @@ public static class BezierUtil{
         return point;
     }
     /// <summary>
-    /// 三阶
+    /// 三阶曲线
     /// </summary>
-    /// <param name="t"></param>
+    /// <param name="t">[0,1]</param>
     /// <param name="startPos"></param>
     /// <param name="endPos"></param>
     /// <param name="controlPoint"></param>
