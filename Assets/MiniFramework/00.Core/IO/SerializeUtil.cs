@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace MiniFramework
 {
     public class SerializeUtil
-    {
+    {       
         public static bool SerializeToBinary(object obj, string path)
         {
             if (obj == null)
@@ -26,12 +26,11 @@ namespace MiniFramework
         }
         public static T DeserializeFromBinary<T>(string path)
         {
-            FileInfo fileInfo = new FileInfo(path);
-            if (!fileInfo.Exists)
+            if (!File.Exists(path))
             {
-                throw new System.Exception("路径不存在！");
+                throw new System.Exception("文件不存在！："+path);
             }
-            using (FileStream fs = fileInfo.OpenRead())
+            using (FileStream fs = new FileStream(path,FileMode.Open))
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 object data = bf.Deserialize(fs);
@@ -62,12 +61,11 @@ namespace MiniFramework
             {
                 throw new System.Exception("路径不能为空！");
             }
-            FileInfo fileInfo = new FileInfo(path);
-            if (!fileInfo.Exists)
+            if (!File.Exists(path))
             {
-                throw new System.Exception("路径不存在！");
+                throw new System.Exception("文件不存在！:"+path);
             }
-            using (FileStream fs = fileInfo.OpenRead())
+            using (FileStream fs = new FileStream(path,FileMode.Open))
             {
                 XmlSerializer xml = new XmlSerializer(typeof(T));
                 object data = xml.Deserialize(fs);
@@ -98,6 +96,32 @@ namespace MiniFramework
                 throw new System.ArgumentNullException("bytes");
             }
             return ProtoBuf.Serializer.Deserialize<T>(new MemoryStream(bytes));
+        }
+        public static bool SaveBinaryToLocal(byte[] data,string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new System.Exception("路径不能为空！");
+            }
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                BinaryWriter bf = new BinaryWriter(fs);
+                bf.Write(data);
+                return true;
+            }
+        }
+        public static byte[] ReadBinaryFromLocal(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new System.Exception("文件不存在！:" + path);
+            }
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                BinaryReader bf = new BinaryReader(fs);
+                byte[] data = bf.ReadBytes((int)fs.Length);
+                return data;
+            }
         }
     }
 }

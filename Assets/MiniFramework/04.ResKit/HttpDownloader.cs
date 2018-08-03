@@ -4,18 +4,13 @@ using UnityEngine.Networking;
 
 namespace MiniFramework
 {
-    class HttpDownloader : MonoBehaviour
+    public class HttpDownloader : MonoBehaviour
     {
-        void Start()
+        public void DownLoad(string url,string savePath)
         {
-           
+            StartCoroutine(Task());
         }
-        public bool Get(string url,string savePath)
-        {
-            StartCoroutine(WebDownload());
-            return true;
-        }
-        IEnumerator WebDownload()
+        IEnumerator Task()
         {
             using (UnityWebRequest www = UnityWebRequest.Get("file:///"+Application.streamingAssetsPath+ "/Xml"))
             {

@@ -8,14 +8,16 @@ public class SerializeExample : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        FileUtil.CreateDirectoryIfNonExist(Application.streamingAssetsPath);
+
         TestClass tc = new TestClass() { age = 20, name = "xx", isBoy = true };
-        SerializeUtil.SerializeToBinary(tc,Application.streamingAssetsPath+"/Binary");
-        SerializeUtil.SerializeToXml(tc, Application.streamingAssetsPath + "/Xml");
+        SerializeUtil.SerializeToBinary(tc,Application.streamingAssetsPath+"/Binary.bin");
+        SerializeUtil.SerializeToXml(tc, Application.streamingAssetsPath + "/Xml.xml");
         string json = SerializeUtil.SerializeToJson(tc);
         byte[] bytes = SerializeUtil.SerializeToProtoBuff(tc);
 
-        tc = SerializeUtil.DeserializeFromBinary<TestClass>(Application.streamingAssetsPath + "/Binary");
-        tc = SerializeUtil.DeserializeFromXML<TestClass>(Application.streamingAssetsPath + "/Xml");
+        tc = SerializeUtil.DeserializeFromBinary<TestClass>(Application.streamingAssetsPath + "/Binary.bin");
+        tc = SerializeUtil.DeserializeFromXML<TestClass>(Application.streamingAssetsPath + "/Xml.xml");
         tc = SerializeUtil.DeserializeFromJson<TestClass>(json);
         tc = SerializeUtil.DeserializeFromProtoBuff<TestClass>(bytes);
     }
