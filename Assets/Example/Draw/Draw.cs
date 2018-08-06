@@ -11,6 +11,8 @@ public class Draw : MonoBehaviour {
     }
     private void OnDrawGizmos()
     {
-        DrawUtil.Sector(transform.position,Angle,Radius);
+         Gizmos.color = Color.red;
+         DrawUtil.Sector(transform, Angle, Radius);
+        // DrawUtil.Circle2D(transform.position,Radius);
     }
 }
