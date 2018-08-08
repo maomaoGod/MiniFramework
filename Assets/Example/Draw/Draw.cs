@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MiniFramework;
-public class Draw : MonoBehaviour {
-    public int Angle;
-    public int Radius;
+public class Draw : MonoBehaviour
+{
     void Start()
     {
-        Debug.Log(transform.forward);
+        DrawUtil.Circle(transform, 5);
+        DrawUtil.Rectangle(transform, 5, 5);
+        DrawUtil.Sector(transform, 60, 5);
     }
     private void OnDrawGizmos()
     {
-         Gizmos.color = Color.red;
-         DrawUtil.Sector(transform, Angle, Radius);
-        // DrawUtil.Circle2D(transform.position,Radius);
+        DrawUtil.SectorOnGizmos(transform, 60, 5);
+        DrawUtil.RectangleOnGizmos(transform, 5,5);
+        DrawUtil.CircleOnGizmos(transform, 5);
     }
 }

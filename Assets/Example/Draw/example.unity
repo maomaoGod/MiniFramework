@@ -288,11 +288,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 1477925553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fefe88db56918ef4e8c4a80ab31e7269, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f1ac7a344f5f934082cc7a8026ca72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Angle: 79
-  Radius: 1
+  Type: 0
+  Patterns:
+  - Type: 1
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Angle: {x: 0, y: 0, z: 0}
+    Radius: {x: 0, y: 0, z: 0}
+    Length: {x: 0, y: 0, z: 0}
+    Width: {x: 0, y: 0, z: 0}
+  xx: 11110000
 --- !u!4 &1477925555
 Transform:
   m_ObjectHideFlags: 0

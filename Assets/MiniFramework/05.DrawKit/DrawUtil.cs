@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 namespace MiniFramework
 {
     public class DrawUtil
     {
+        private static Color color = Color.red;
         private static float factor = 100;
         /// <summary>
         /// 扇形
@@ -10,71 +12,100 @@ namespace MiniFramework
         /// <param name="target"></param>
         /// <param name="angle"></param>
         /// <param name="radius"></param>
-        public static void Sector(Transform target, float angle, float radius)
+        public static void SectorOnGizmos(Transform target, float angle, float radius)
+        {
+            Gizmos.color = color;
+            float eachAngle = angle / factor;
+            List<Vector3> points = new List<Vector3>();
+            for (int i = 0; i <= factor; i++)
+            {
+                Vector3 point = Quaternion.AngleAxis(-angle / 2 + eachAngle * i, target.up) * target.forward * radius + target.position;
+                points.Add(point);
+            }
+            for (int i = 0; i < points.Count-1; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i + 1]);
+            }
+            Gizmos.DrawLine(target.position, points[0]);
+            Gizmos.DrawLine(target.position, points[points.Count - 1]);          
+        }
+        public static void Sector(Transform target,float angle,float radius)
         {
             float eachAngle = angle / factor;
-            for (int i = 0; i < factor; i++)
+            List<Vector3> points = new List<Vector3>();
+            points.Add(new Vector3(0,0,0));
+            for (int i = 0; i <= factor; i++)
             {
-                Vector3 start = Quaternion.Euler(0, -angle / 2 + eachAngle * i, 0f) * target.forward * radius + target.position;
-                Vector3 end = Quaternion.Euler(0, -angle / 2 + eachAngle * (i+1), 0f) * target.forward * radius + target.position;
-                Gizmos.DrawLine(start, end);
-            }          
+                Vector3 point = Quaternion.AngleAxis(-angle / 2 + eachAngle * i, target.up) * target.forward * radius;
+                points.Add(point);
+            }
+            CreateMesh(target.position, points);
         }
         /// <summary>
-        /// 圆形(贝塞尔实现)
+        /// 圆形
         /// </summary>
         /// <param name="center"></param>
         /// <param name="radius"></param>
-        public static void Circle(Vector3 center, float radius)
+        public static void CircleOnGizmos(Transform target, float radius)
         {
-                       
+            SectorOnGizmos(target, 360, radius);
         }
-
-        /// <summary>
-        /// 圆形(贝塞尔实现)
-        /// </summary>
-        /// <param name="center"></param>
-        /// <param name="radius"></param>
-        public static void Circle2D(Vector2 center, float radius)
+        public static void Circle(Transform target,float radius)
         {
-            float c = (Mathf.Sqrt(radius/2f) *8f-4f)/3f;
-            Vector2 p0 = new Vector2(center.x, center.y - radius);
-            Vector2 p1 = new Vector2(center.x + c, center.y - radius);
-            Vector2 p2 = new Vector2(center.x + radius, center.y - c);
-            Vector2 p3 = new Vector2(center.x + radius, center.y);
-            Vector2 p4 = new Vector2(center.x + radius, center.y + c);
-            Vector2 p5 = new Vector2(center.x + c, center.y+radius);
-            Vector2 p6 = new Vector2(center.x, center.y + radius);
-            Vector2 p7 = new Vector2(center.x - c, center.y + radius);
-            Vector2 p8 = new Vector2(center.x - radius, center.y + c);
-            Vector2 p9 = new Vector2(center.x - radius, center.y);
-            Vector2 p10 = new Vector2(center.x - radius, center.y - c);
-            Vector2 p11 = new Vector2(center.x - c, center.y - radius);
+            Sector(target, 360, radius);
+        }
+        /// <summary>
+        /// 矩形
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="length"></param>
+        /// <param name="width"></param>
+        public static void RectangleOnGizmos(Transform target, float length, float width)
+        {
+            Gizmos.color = color;
+            Vector3 p0 = target.position - target.right * (width / 2);
+            Vector3 p1 = target.position - target.right * (width / 2) + target.forward * length;
+            Vector3 p2 = target.position + target.right * (width / 2) + target.forward * length;
+            Vector3 p3 = target.position + target.right * (width / 2);
+            Gizmos.DrawLine(p0, p1);
+            Gizmos.DrawLine(p1, p2);
+            Gizmos.DrawLine(p2, p3);
+            Gizmos.DrawLine(p3, p0);          
+        }
+        public static void Rectangle(Transform target, float length, float width)
+        {
+            Vector3 p0 = -target.right * (width / 2);
+            Vector3 p1 = -target.right * (width / 2) + target.forward * length;
+            Vector3 p2 = target.right * (width / 2) + target.forward * length;
+            Vector3 p3 = target.right * (width / 2);
+            List<Vector3> vertices = new List<Vector3>();
+            vertices.Add(p0);
+            vertices.Add(p1);
+            vertices.Add(p2);
+            vertices.Add(p3);
+            CreateMesh(target.position, vertices);
+        }
+        static void CreateMesh(Vector3 point, List<Vector3> vertices)
+        {
+            Mesh mesh = new Mesh();
+            int triangleAmount = vertices.Count - 2;//三角形个数
+            int[] triangles = new int[triangleAmount * 3];//三角形顶点顺序
 
-            for (int i = 0; i < factor; i++)
+            for (int i = 0; i < triangleAmount; i++)
             {
-                Vector3 start = BezierUtil.Curve(i * (1 / factor), p0, p1, p2, p3);
-                Vector3 end = BezierUtil.Curve((i + 1) * (1 / factor), p0, p1, p2, p3);
-                Gizmos.DrawLine(start, end);
+                triangles[3 * i] = 0;
+                triangles[3 * i + 1] = i + 1;
+                triangles[3 * i + 2] = i + 2;
             }
-            for (int i = 0; i < factor; i++)
-            {
-                Vector3 start = BezierUtil.Curve(i * (1 / factor), p3, p4, p5, p6);
-                Vector3 end = BezierUtil.Curve((i + 1) * (1 / factor), p3, p4, p5, p6);
-                Gizmos.DrawLine(start, end);
-            }
-            for (int i = 0; i < factor; i++)
-            {
-                Vector3 start = BezierUtil.Curve(i * (1 / factor), p6, p7, p8, p9);
-                Vector3 end = BezierUtil.Curve((i + 1) * (1 / factor), p6, p7, p8, p9);
-                Gizmos.DrawLine(start, end);
-            }
-            for (int i = 0; i < factor; i++)
-            {
-                Vector3 start = BezierUtil.Curve(i * (1 / factor), p9, p10, p11, p0);
-                Vector3 end = BezierUtil.Curve((i + 1) * (1 / factor), p9, p10, p11, p0);
-                Gizmos.DrawLine(start, end);
-            }
+            GameObject obj = new GameObject("Mesh");
+            obj.transform.position = point;
+            MeshFilter mf = obj.AddComponent<MeshFilter>();
+            MeshRenderer mr = obj.AddComponent<MeshRenderer>();
+            mesh.vertices = vertices.ToArray();
+            mesh.triangles = triangles;
+            mf.mesh = mesh;
+            mr.material.shader = Shader.Find("Unlit/Color");
+            mr.material.color = color;
         }
     }
 }
