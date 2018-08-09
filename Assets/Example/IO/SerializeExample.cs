@@ -11,7 +11,7 @@ public class SerializeExample : MonoBehaviour
         FileUtil.CreateDirectoryIfNonExist(Application.streamingAssetsPath);
 
         TestClass tc = new TestClass() { age = 20, name = "xx", isBoy = true };
-        SerializeUtil.SerializeToBinary(tc,Application.streamingAssetsPath+"/Binary.bin");
+        SerializeUtil.SerializeToBinary(tc, Application.streamingAssetsPath + "/Binary.bin");
         SerializeUtil.SerializeToXml(tc, Application.streamingAssetsPath + "/Xml.xml");
         string json = SerializeUtil.SerializeToJson(tc);
         byte[] bytes = SerializeUtil.SerializeToProtoBuff(tc);

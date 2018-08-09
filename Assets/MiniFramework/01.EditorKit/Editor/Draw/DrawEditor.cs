@@ -1,32 +1,58 @@
 ﻿using UnityEditor;
 using UnityEngine;
-[CustomEditor(typeof(DrawComponent)),CanEditMultipleObjects]
-public class DrawEditor : Editor
+namespace MiniFramework
 {
-    private SerializedProperty patterns;
-    private DrawComponent dc;
-    private void OnEnable()
+    [CustomEditor(typeof(DrawComponent)), CanEditMultipleObjects]
+    public class DrawEditor : Editor
     {
-        patterns = serializedObject.FindProperty("Patterns");
-        dc = (DrawComponent)target;
+        private SerializedProperty patterns;
+        private SerializedProperty color;
+        private void OnEnable()
+        {
+            patterns = serializedObject.FindProperty("Patterns");
+            color = serializedObject.FindProperty("Color");
+        }
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+            if (GUILayout.Button("Add"))
+            {
+                patterns.arraySize++;
+            }
+            if (GUILayout.Button("Delete"))
+            {
+                patterns.arraySize--;
+            }
+            EditorGUILayout.PropertyField(color);
+            for (int i = 0; i < patterns.arraySize; i++)
+            {
+                SerializedProperty pattern = patterns.GetArrayElementAtIndex(i);
+                SerializedProperty type = pattern.FindPropertyRelative("Type");
+                EditorGUILayout.PropertyField(type);
+                SerializedProperty createMesh = pattern.FindPropertyRelative("CreateMesh");
+                EditorGUILayout.PropertyField(createMesh);
+                if (type.enumValueIndex == (int)PatternType.圆形)
+                {
+                    SerializedProperty radius = pattern.FindPropertyRelative("Radius");
+                    EditorGUILayout.PropertyField(radius);
+                }
+                if (type.enumValueIndex == (int)PatternType.扇形)
+                {
+                    SerializedProperty radius = pattern.FindPropertyRelative("Radius");
+                    SerializedProperty angle = pattern.FindPropertyRelative("Angle");
+                    EditorGUILayout.PropertyField(radius);
+                    EditorGUILayout.PropertyField(angle);
+                }
+                if (type.enumValueIndex == (int)PatternType.矩形)
+                {
+                    SerializedProperty length = pattern.FindPropertyRelative("Length");
+                    SerializedProperty width = pattern.FindPropertyRelative("Width");
+                    EditorGUILayout.PropertyField(length);
+                    EditorGUILayout.PropertyField(width);
+                }
+            }
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
-        // 自定义绘制
-        if (GUILayout.Button("Add"))
-        {
-            dc.Patterns.Add(new Pattern());
-        }
-        if (GUILayout.Button("Delete"))
-        {
-            if (dc.Patterns.Count > 0)
-            {
-                dc.Patterns.Remove(dc.Patterns[dc.Patterns.Count - 1]);
-            }            
-        }
-        EditorGUILayout.PropertyField(patterns,true);
-        serializedObject.ApplyModifiedProperties();
-    }
 }

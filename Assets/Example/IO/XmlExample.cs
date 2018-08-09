@@ -9,18 +9,18 @@ public class XmlExample : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         A xml = new A();
-        B b = new B() { b=222,a=new bool[] {false,true } };
+        B b = new B() { b = new Vector3(1, 2, 3), a =new bool[] {false,true } };
         
         xml.a = 111;
         xml.b = "xxx";
         xml.c = new float[] { 0.1f, 0.2f };
         xml.blist = new List<B>();
         xml.blist.Add(b);
-        if (SerializeUtil.SerializeToXml(xml, Application.streamingAssetsPath + "/A"))
+        if (SerializeUtil.SerializeToXml(xml, Application.streamingAssetsPath + "/A.xml"))
         {
             Debug.Log("序列化成功");
         }
-        xml = SerializeUtil.DeserializeFromXML<A>(Application.streamingAssetsPath + "/A");
+        xml = SerializeUtil.DeserializeFromXML<A>(Application.streamingAssetsPath + "/A.xml");
 	}
 	
 	// Update is called once per frame
@@ -39,6 +39,6 @@ public class A
 [Serializable]
 public class B
 {
-    public int b { get; set; }
+    public Vector3 b { get; set; }
     public bool[] a { get; set; }
 }

@@ -291,54 +291,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ac7a344f5f934082cc7a8026ca72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
   Patterns:
   - Type: 1
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
+    Angle: 0
+    Radius: 1.95
+    Length: 0
+    Width: 0
+    CreateMesh: 0
   - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  - Type: 0
-    Angle: {x: 0, y: 0, z: 0}
-    Radius: {x: 0, y: 0, z: 0}
-    Length: {x: 0, y: 0, z: 0}
-    Width: {x: 0, y: 0, z: 0}
-  xx: 11110000
+    Angle: 108
+    Radius: 2.94
+    Length: 0
+    Width: 0
+    CreateMesh: 0
+  - Type: 2
+    Angle: 108
+    Radius: 2.94
+    Length: 2.1
+    Width: 3.45
+    CreateMesh: 0
+  Color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &1477925555
 Transform:
   m_ObjectHideFlags: 0
