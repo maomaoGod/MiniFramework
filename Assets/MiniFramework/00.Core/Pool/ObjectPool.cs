@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MiniFramework
@@ -18,24 +19,29 @@ namespace MiniFramework
             {
                 return mCacheDict[name].Count;
             }
-            throw new System.Exception("对象池不存在该对象！");
+            return 0;
         }
         /// <summary>
         /// 初始化对象池
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="count"></param>
-        public void Init(GameObject obj, int count, bool dontDestroyOnLoad = false)
+        public void Init(GameObject obj, uint maxCount, uint minCount, bool dontDestroyOnLoad = false)
         {
-            for (int i = 0; i < count; i++)
+            mMaxCount = maxCount;
+            uint initCount = Math.Min(maxCount, minCount);
+            if (CurCount(obj.name) < initCount)
             {
-                GameObject temp = Instantiate(obj);
-                if (dontDestroyOnLoad)
+                for (int i = CurCount(obj.name); i < initCount; i++)
                 {
-                    DontDestroyOnLoad(temp);
+                    GameObject temp = Instantiate(obj);
+                    if (dontDestroyOnLoad)
+                    {
+                        DontDestroyOnLoad(temp);
+                    }
+                    temp.name = obj.name;
+                    Recycle(temp);
                 }
-                temp.name = obj.name;
-                Recycle(temp);
             }
         }
         /// <summary>
@@ -47,16 +53,21 @@ namespace MiniFramework
         {
             if (mCacheDict.ContainsKey(objName))
             {
-                if (mCacheDict[objName].Count > 0)
+               return Pop(objName);
+            }
+            return null;
+        }
+        private GameObject Pop(string key)
+        {
+            if (mCacheDict[key].Count > 0)
+            {
+                GameObject obj = mCacheDict[key].Pop();
+                if (obj == null)
                 {
-                    GameObject obj = mCacheDict[objName].Pop();
-                    if (obj == null)
-                    {
-                        return null;
-                    }
-                    obj.SetActive(true);
-                    return obj;
+                   obj = Pop(key);
                 }
+                obj.SetActive(true);
+                return obj;
             }
             return null;
         }
@@ -93,4 +104,3 @@ namespace MiniFramework
         }
     }
 }
-

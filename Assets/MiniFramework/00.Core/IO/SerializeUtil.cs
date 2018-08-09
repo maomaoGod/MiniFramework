@@ -72,7 +72,7 @@ namespace MiniFramework
                 return (T)data;
             }
         }
-        public static string SerializeToJson(object obj)
+        public static string SerializeToJson<T>(T obj)
         {
             return JsonConvert.SerializeObject(obj, Formatting.Indented);
         }
@@ -81,7 +81,7 @@ namespace MiniFramework
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public static byte[] SerializeToProtoBuff(object obj)
+        public static byte[] SerializeToProtoBuff<T>(T obj)
         {
             using (MemoryStream ms = new MemoryStream())
             {

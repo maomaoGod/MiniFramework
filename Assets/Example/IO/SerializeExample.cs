@@ -15,7 +15,8 @@ public class SerializeExample : MonoBehaviour
         SerializeUtil.SerializeToXml(tc, Application.streamingAssetsPath + "/Xml.xml");
         string json = SerializeUtil.SerializeToJson(tc);
         byte[] bytes = SerializeUtil.SerializeToProtoBuff(tc);
-
+        MiniFramework.SerializeUtil.SaveBinaryToLocal(bytes, Application.streamingAssetsPath + "/Binary2.bin");
+        bytes = SerializeUtil.ReadBinaryFromLocal(Application.streamingAssetsPath + "/Binary2.bin");
         tc = SerializeUtil.DeserializeFromBinary<TestClass>(Application.streamingAssetsPath + "/Binary.bin");
         tc = SerializeUtil.DeserializeFromXML<TestClass>(Application.streamingAssetsPath + "/Xml.xml");
         tc = SerializeUtil.DeserializeFromJson<TestClass>(json);

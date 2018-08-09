@@ -4,7 +4,7 @@ public class UsePool : MonoBehaviour {
     public GameObject Prefab;
 	// Use this for initialization
 	void Start () {
-        ObjectPool.Instance().Init(Prefab, 10,true);
+        ObjectPool.Instance().Init(Prefab, 5,5,true);
     }
 	
 	// Update is called once per frame
