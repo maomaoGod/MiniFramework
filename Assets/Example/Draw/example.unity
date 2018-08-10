@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &882688025
 Light:
   m_ObjectHideFlags: 0
@@ -288,29 +288,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1477925553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f1ac7a344f5f934082cc7a8026ca72f, type: 3}
+  m_Script: {fileID: 11500000, guid: efe8a3fda6363ce48acdfb0746d38c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Patterns:
-  - Type: 1
-    Angle: 0
-    Radius: 1.95
-    Length: 0
-    Width: 0
-    CreateMesh: 0
   - Type: 0
-    Angle: 108
-    Radius: 2.94
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Angle: 261
+    Radius: 2.46
     Length: 0
     Width: 0
-    CreateMesh: 0
+    CreateMesh: 1
+  - Type: 1
+    Color: {r: 0.24137926, g: 0, b: 1, a: 1}
+    Angle: 0
+    Radius: 3.57
+    Length: 0
+    Width: 0
+    CreateMesh: 1
   - Type: 2
-    Angle: 108
-    Radius: 2.94
-    Length: 2.1
-    Width: 3.45
-    CreateMesh: 0
-  Color: {r: 0, g: 0, b: 0, a: 1}
+    Color: {r: 0, g: 0, b: 0, a: 1}
+    Angle: 0
+    Radius: 0
+    Length: 4.62
+    Width: 3.21
+    CreateMesh: 1
 --- !u!4 &1477925555
 Transform:
   m_ObjectHideFlags: 0

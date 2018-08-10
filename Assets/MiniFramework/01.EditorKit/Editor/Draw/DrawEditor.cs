@@ -6,11 +6,9 @@ namespace MiniFramework
     public class DrawEditor : Editor
     {
         private SerializedProperty patterns;
-        private SerializedProperty color;
         private void OnEnable()
         {
             patterns = serializedObject.FindProperty("Patterns");
-            color = serializedObject.FindProperty("Color");
         }
         public override void OnInspectorGUI()
         {
@@ -23,7 +21,6 @@ namespace MiniFramework
             {
                 patterns.arraySize--;
             }
-            EditorGUILayout.PropertyField(color);
             for (int i = 0; i < patterns.arraySize; i++)
             {
                 SerializedProperty pattern = patterns.GetArrayElementAtIndex(i);
@@ -31,6 +28,8 @@ namespace MiniFramework
                 EditorGUILayout.PropertyField(type);
                 SerializedProperty createMesh = pattern.FindPropertyRelative("CreateMesh");
                 EditorGUILayout.PropertyField(createMesh);
+                SerializedProperty color = pattern.FindPropertyRelative("Color");
+                EditorGUILayout.PropertyField(color);
                 if (type.enumValueIndex == (int)PatternType.圆形)
                 {
                     SerializedProperty radius = pattern.FindPropertyRelative("Radius");

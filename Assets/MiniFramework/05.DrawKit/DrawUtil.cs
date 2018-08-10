@@ -11,8 +11,9 @@ namespace MiniFramework
         /// <param name="target"></param>
         /// <param name="angle"></param>
         /// <param name="radius"></param>
-        public static void SectorOnGizmos(Transform target, float angle, float radius)
+        public static void SectorOnGizmos(Transform target, float angle, float radius,Color color)
         {
+            Gizmos.color = color;
             float eachAngle = angle / factor;
             List<Vector3> points = new List<Vector3>();
             for (int i = 0; i <= factor; i++)
@@ -44,8 +45,9 @@ namespace MiniFramework
         /// </summary>
         /// <param name="center"></param>
         /// <param name="radius"></param>
-        public static void CircleOnGizmos(Transform target, float radius)
+        public static void CircleOnGizmos(Transform target, float radius,Color color)
         {
+            Gizmos.color = color;
             float eachAngle = 360f / factor;
             List<Vector3> points = new List<Vector3>();
             for (int i = 0; i <= factor; i++)
@@ -68,8 +70,9 @@ namespace MiniFramework
         /// <param name="target"></param>
         /// <param name="length"></param>
         /// <param name="width"></param>
-        public static void RectangleOnGizmos(Transform target, float length, float width)
+        public static void RectangleOnGizmos(Transform target, float length, float width,Color color)
         {
+            Gizmos.color = color;
             Vector3 p0 = target.position - target.right * (width / 2);
             Vector3 p1 = target.position - target.right * (width / 2) + target.forward * length;
             Vector3 p2 = target.position + target.right * (width / 2) + target.forward * length;
